@@ -1,53 +1,43 @@
 import os
 import inquirer
-from typing import List, Dict
 
-def get_pdf_files() -> Dict[str, List[str]]:
+def get_pdf_files():
     """Get all PDF files from current directory and sample pdfs directory."""
-    pdf_files = {
-        "Current Directory": [],
-        "Sample PDFs": []
-    }
+    pdf_files = []
     
-    current_files = [f for f in os.listdir('.') if f.lower().endswith('.pdf')]
-    pdf_files["Current Directory"] = current_files
+    # Get PDFs from current directory
+    for file in os.listdir('.'):
+        if file.lower().endswith('.pdf'):
+            pdf_files.append(file)
     
     # Get PDFs from sample pdfs directory
     sample_pdfs_dir = "sample_pdfs"
     if os.path.exists(sample_pdfs_dir):
-        sample_files = [f for f in os.listdir(sample_pdfs_dir) if f.lower().endswith('.pdf')]
-        pdf_files["Sample PDFs"] = sample_files
+        for file in os.listdir(sample_pdfs_dir):
+            if file.lower().endswith('.pdf'):
+                pdf_files.append(os.path.join(sample_pdfs_dir, file))
     
     return pdf_files
 
-def select_pdf_files() -> List[str]:
+def select_pdf_files():
     """Create an interactive CLI to select PDF files."""
     pdf_files = get_pdf_files()
-    if not any(pdf_files.values()):
+    
+    if not pdf_files:
         print("No PDF files found in current directory or 'sample pdfs' directory.")
         return []
-    
-    choices = []
-    for directory, files in pdf_files.items():
-        if files:
-            choices.append(f"--- {directory} ---")
-            if directory == "Current Directory":
-                choices.extend([f for f in files])
-            else:
-                choices.extend([os.path.join(directory, f) for f in files])
     
     questions = [
         inquirer.Checkbox(
             'selected_files',
             message="Select PDF files to convert",
-            choices=choices,
+            choices=pdf_files,
         ),
     ]
     
     try:
         answers = inquirer.prompt(questions)
-        selected = answers['selected_files'] if answers else []
-        return [f for f in selected if not f.startswith('---')]
+        return answers['selected_files'] if answers else []
     except Exception as e:
         print(f"An error occurred: {e}")
         return []
