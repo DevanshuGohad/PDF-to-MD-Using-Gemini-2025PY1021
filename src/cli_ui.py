@@ -1,43 +1,39 @@
 import os
 import inquirer
+from typing import List
 
-def get_pdf_files():
-    """Get all PDF files from current directory and sample pdfs directory."""
-    pdf_files = []
-    
-    # Get PDFs from current directory
-    for file in os.listdir('.'):
-        if file.lower().endswith('.pdf'):
-            pdf_files.append(file)
-    
-    # Get PDFs from sample pdfs directory
+def get_pdf_files() -> List[str]:
+    """Get all PDF files from current directory and sample_pdfs directory."""
+
     sample_pdfs_dir = "sample_pdfs"
-    if os.path.exists(sample_pdfs_dir):
-        for file in os.listdir(sample_pdfs_dir):
-            if file.lower().endswith('.pdf'):
-                pdf_files.append(os.path.join(sample_pdfs_dir, file))
-    
-    return pdf_files
+    return ([f for f in os.listdir('.') if f.lower().endswith('.pdf')] +
+        [os.path.join(sample_pdfs_dir, f) for f in os.listdir(sample_pdfs_dir)
+         if f.lower().endswith('.pdf')] if os.path.exists(sample_pdfs_dir) else [])
 
-def select_pdf_files():
+
+def select_pdf_files() -> List[str]:
     """Create an interactive CLI to select PDF files."""
     pdf_files = get_pdf_files()
     
     if not pdf_files:
-        print("No PDF files found in current directory or 'sample pdfs' directory.")
+        print("No PDF files found in the current directory.")
         return []
     
+    display_to_path = {os.path.basename(f): f for f in pdf_files}
+    display_names = list(display_to_path.keys())
+
     questions = [
         inquirer.Checkbox(
             'selected_files',
             message="Select PDF files to convert",
-            choices=pdf_files,
+            choices=display_names,
         ),
     ]
-    
+
     try:
         answers = inquirer.prompt(questions)
-        return answers['selected_files'] if answers else []
+        # Map selected display names back to full paths
+        return [display_to_path[name] for name in answers['selected_files']] if answers else []
     except Exception as e:
         print(f"An error occurred: {e}")
         return []
