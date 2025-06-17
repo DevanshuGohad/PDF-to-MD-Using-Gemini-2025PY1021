@@ -27,8 +27,17 @@ def main():
             continue
 
         # Step 5: Convert to markdown
+        markdown = convert_text_to_markdown(pdf_text)
+        if not markdown:
+            print(f"Skipping {file_name} due to Gemini failure.")
+            continue
 
         # Step 6: Write to .md file
+        md_filename = os.path.splitext(os.path.basename(file_name))[0] + ".md"
+        md_filepath = os.path.join(output_dir, md_filename)
+        with open(md_filepath, "w", encoding="utf-8") as f:
+            f.write(markdown)
+        print(f"Saved: {md_filepath}")
 
 if __name__ == '__main__':
     main()
