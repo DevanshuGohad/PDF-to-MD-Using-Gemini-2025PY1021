@@ -11,6 +11,8 @@ api_key = os.getenv("GEMINI_API_KEY")
 # Configure Gemini
 genai.configure(api_key=api_key)
 
+# Initialize the Gemini model
+# Using 'gemini-2.5-flash-preview-05-20' model here
 model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20')
 
 def convert_text_to_markdown(text: str) -> str:
@@ -23,8 +25,10 @@ def convert_text_to_markdown(text: str) -> str:
         f"{text}"
     )
     try:
+        # Generate content using the Gemini model
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
+        # Handle any errors that occur during the conversion
         print(f"Gemini conversion failed: {e}")
         return ""
