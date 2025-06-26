@@ -1,1 +1,71 @@
-Write reports for every commit in this directory
+Reports for every commit in this directory:
+
+
+Commit Name: INITIAL COMMIT
+Date: 09/06/2025
+Commit description: Did the first commit. 
+Progress percentage: 0.1
+List of features working currently: None (only printing "Hello World.")
+
+
+Commit Name: Built CLI UI
+Date: 10/06/2025
+Commit description: Built the CLI UI using python inquirer to select pdf files from the directory, also added sample pdfs in sample_pdfs folder.
+Progress percentage: 15
+List of features working currently: Selecting pdf files from the directory.
+
+
+Commit Name: Modifications and simplifications in CLI UI
+Date: 11/06/2025
+Commit description: Simplified the CLI UI, modified the code to make it easy to understand by simplifying complex logic and adding appropriate comments.
+Progress percentage: 15
+List of features working currently: Selecting pdf files from the directory.
+
+
+Commit Name:  Created Directory For Storing MD Conversions.
+Date: 12/06/2025
+Commit description: Created a separate directory for storing the converted files(PDF to MD) .
+Progress percentage: 20
+List of features working currently: Selecting pdf files from the directory.
+
+
+Commit Name: Extracting Data From PDF For Gemini To Process.
+Date: 13/06/2025
+Commit description: Created a utils.py file for extracting data from PDF file which is required for Gemini, also modified main.py for referring the functions defined in utils.py for extraction.
+Progress percentage: 50
+List of features working currently: Selecting pdf files from the directory, extracting data from PDF.
+
+
+Commit Name: Gemini API Key Generation.
+Date: 14/06/2025
+Commit description: Will integrate the API key securely using .env file (will refer it in .gitignore for security), added .env_example file to github for reference.
+Progress percentage: 55
+List of features working currently: Selecting pdf files from the directory, extracting data from PDF.
+
+
+Commit Name: Markdown Generation.
+Date: 16/06/2025
+Commit description: Created a file named gemini.py for generating markdown of the selected PDF via the extracted data (using utils.py). It uses the 'Gemini 2.5 Flash' model for handling requests.
+Progress percentage: 80
+List of features working currently: Selecting PDF files from the directory, extracting data from PDF, generating markdown of selected PDF.
+
+
+Commit Name: Further Markdown Generation.
+Date: 17/06/2025
+Commit description: Modified the 'main.py' file for generating markdown of the selected PDF.
+Progress percentage: 85
+List of features working currently:  Selecting PDF files from the directory, extracting data from PDF, generating markdown of selected PDF.
+
+
+Commit Name: Basic Modifications.
+Date: 18/06/2025
+Commit description: Modified the 'cli_ui.py' and 'gemini.py' file for better code understanding.
+Progress percentage: 90
+List of features working currently:  Selecting PDF files from the directory, extracting data from PDF, generating markdown of selected PDF, writing to .md file.
+
+
+Commit Name: Final Commit
+Date: 26/06/2025
+Commit description: Modified the 'write-reports-here.txt' file for adding reports of every commit in this repository and also added another sample pdf file 'sample_3.pdf'.
+Progress percentage: 100
+List of features working currently:  Selecting PDF files from the directory, extracting data from PDF, generating markdown of selected PDF, writing to .md file.
